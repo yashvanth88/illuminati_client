@@ -18,8 +18,7 @@ function App() {
   const [matchedRoomId, setMatchedRoomId] = useState('');
 
   useEffect(() => {
-    const serverIP = window.location.hostname;
-    const wsUrl = `wss://${serverIP}:3001`;
+    const wsUrl = import.meta.env.VITE_WS_URL || "wss://34.47.142.176:3001";
     let reconnectAttempts = 0;
     const maxReconnectAttempts = 5;
     const reconnectDelay = 3000;

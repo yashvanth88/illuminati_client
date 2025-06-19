@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Chat from './component/Chat';
 import VideoChat from './component/VideoChat';
+import { Analytics } from "@vercel/analytics/next"
 
 function App() {
   const [ws, setWs] = useState(null);
@@ -203,6 +204,7 @@ function App() {
           )}
         </main>
       )}
+      <Analytics />
     </div>
   );
 }

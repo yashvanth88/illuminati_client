@@ -1,11 +1,8 @@
-// client/vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
 import rollupNodePolyFill from 'rollup-plugin-node-polyfills';
-import fs from 'fs';
-import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
@@ -13,10 +10,7 @@ export default defineConfig({
     host: '0.0.0.0',  // Allow external access
     port: 5173,
     strictPort: true,
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, '../server/ssl/server.key')),
-      cert: fs.readFileSync(path.resolve(__dirname, '../server/ssl/server.cert')),
-    }
+    // REMOVE the https block for Vercel compatibility!
   },
   resolve: {
     alias: {

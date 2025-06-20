@@ -19,7 +19,7 @@ function App() {
   const [matchedRoomId, setMatchedRoomId] = useState('');
 
   useEffect(() => {
-    const wsUrl = import.meta.env.VITE_WS_URL || "wss://34.47.142.176:3001";
+    const wsUrl =  "wss://api.pitri.site";
     let reconnectAttempts = 0;
     const maxReconnectAttempts = 5;
     const reconnectDelay = 3000;

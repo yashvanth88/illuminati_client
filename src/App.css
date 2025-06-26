@@ -284,3 +284,46 @@ main {
     right: 8px;
   }
 }
+
+@media (max-width: 700px) {
+  .app {
+    padding: 4px;
+    max-width: 100vw;
+    min-height: 100vh;
+  }
+  header {
+    padding: 10px 4px 10px 4px;
+    font-size: 1rem;
+    border-radius: 0.7em;
+  }
+  .room-actions, .room-info {
+    padding: 0.5em 0.5em;
+    font-size: 1em;
+  }
+  .chat-container {
+    padding: 10px;
+    border-radius: 0.7em;
+    font-size: 1em;
+    margin: 0.5em 0;
+  }
+  .video-chat-horizontal-container, .video-area {
+    flex-direction: column !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0.7em !important;
+    width: 100vw !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+  }
+  .mode-selector {
+    gap: 8px;
+  }
+  .mode-selector button {
+    padding: 8px 12px;
+    font-size: 1em;
+  }
+  .security-notice {
+    font-size: 0.95em;
+    margin: 6px 0;
+  }
+}

@@ -17,9 +17,11 @@ function App() {
   const [isMatching, setIsMatching] = useState(false);
   const [matchStatus, setMatchStatus] = useState('');
   const [matchedRoomId, setMatchedRoomId] = useState('');
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 700);
 
   useEffect(() => {
     const wsUrl =  "wss://api.pitri.site";
+    //const wsUrl = "wss://localhost:3001";
     let reconnectAttempts = 0;
     const maxReconnectAttempts = 5;
     const reconnectDelay = 3000;
@@ -108,6 +110,12 @@ function App() {
     };
   }, [inputPasscode]);
 
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 700);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleCreateRoom = () => {
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify({ type: 'create_room', duration: sessionDuration }));
@@ -135,20 +143,22 @@ function App() {
         <div className="connection-status">
           Status: <span className={connectionStatus}>{connectionStatus}</span>
         </div>
-        <div className="mode-selector">
-          <button
-            onClick={() => setMode('text')}
-            className={mode === 'text' ? 'active' : ''}
-          >
-            Text Chat
-          </button>
-          <button
-            onClick={() => setMode('video')}
-            className={mode === 'video' ? 'active' : ''}
-          >
-            Video Chat
-          </button>
-        </div>
+        {!(isMobile && mode === 'video') && (
+          <div className="mode-selector">
+            <button
+              onClick={() => setMode('text')}
+              className={mode === 'text' ? 'active' : ''}
+            >
+              Text Chat
+            </button>
+            <button
+              onClick={() => setMode('video')}
+              className={mode === 'video' ? 'active' : ''}
+            >
+              Video Chat
+            </button>
+          </div>
+        )}
       </header>
       <div className="security-notice" style={{textAlign: 'center', margin: '10px 0', color: '#16a085', fontWeight: 'bold'}}>
         No metadata is saved. All communication is end-to-end encrypted.
@@ -197,7 +207,9 @@ function App() {
       )}
       {roomReady && (
         <main>
-          {mode === 'text' ? (
+          {isMobile && mode === 'video' ? (
+            <VideoChat ws={ws} role={role} />
+          ) : mode === 'text' ? (
             <Chat ws={ws} role={role} />
           ) : (
             <VideoChat ws={ws} role={role} />
